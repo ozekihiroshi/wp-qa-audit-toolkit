@@ -1,0 +1,65 @@
+# Text policy sample for WordPress pre-launch QA.
+#
+# This file is intentionally simple YAML so it can be edited by non-developers.
+# The audit script looks for old wording, banned terms, typo patterns, and
+# consistency issues across public page HTML.
+#
+# Fields:
+# - pattern: Text or regex pattern to search for.
+# - type: label used in the report.
+# - severity: High, Review, or Info.
+# - recommendation: Suggested replacement or review action.
+# - regex: true/false. Default is false.
+# - case_sensitive: true/false. Default is false.
+
+rules:
+  - pattern: "Riordan Center"
+    type: "old-brand-name"
+    severity: "High"
+    recommendation: "Replace with 'Stem Cell Institute' or approved current brand wording."
+
+  - pattern: "Riordan Centers"
+    type: "old-brand-name"
+    severity: "High"
+    recommendation: "Replace with 'Stem Cell Institute' or approved current brand wording."
+
+  - pattern: "Age Related Decline"
+    type: "old-condition-name"
+    severity: "High"
+    recommendation: "Replace with the approved condition name, such as 'Frailty of Aging' if applicable."
+
+  - pattern: "Hilton hotel"
+    type: "specific-hotel-reference"
+    severity: "Review"
+    recommendation: "Replace with neutral wording such as 'hotel accommodations' if required by the QA policy."
+
+  - pattern: "Hilton hotel room"
+    type: "specific-hotel-reference"
+    severity: "Review"
+    recommendation: "Replace with neutral wording such as 'hotel accommodations' if required by the QA policy."
+
+  - pattern: "Patient Testimonials"
+    type: "terminology-consistency"
+    severity: "Review"
+    recommendation: "Use one approved term consistently, such as 'Patient Stories' if that is the site standard."
+
+  - pattern: "cellular therapy"
+    type: "terminology-consistency"
+    severity: "Review"
+    recommendation: "Review whether this should be 'stem cell therapy' according to approved copy."
+
+  - pattern: "Austim"
+    type: "typo"
+    severity: "High"
+    recommendation: "Replace with 'Autism'."
+
+  - pattern: "\bMonday\b|\bTuesday\b|\bWednesday\b|\bThursday\b|\bFriday\b|\bSaturday\b|\bSunday\b"
+    type: "protocol-day-format"
+    severity: "Review"
+    regex: true
+    recommendation: "Review whether treatment protocols should use Day 1, Day 2, Day 3, etc. instead of weekday names."
+
+  - pattern: "Click here"
+    type: "weak-link-text"
+    severity: "Info"
+    recommendation: "Consider replacing with descriptive link text if this appears in patient-facing content."

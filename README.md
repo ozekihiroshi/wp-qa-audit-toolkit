@@ -76,6 +76,19 @@ python3 scripts/wp-url-audit.py \
   --check-status \
   --report reports/url-audit.md
 ```
+### `scripts/wp-text-policy-audit.py`
+
+A read-only text policy audit script for WordPress staging or production pages.
+
+It can:
+
+- Read a list of page URLs from a text file
+- Read a simple text policy file
+- Fetch each page
+- Extract visible text from HTML
+- Detect old brand names, outdated terms, typo patterns, and wording consistency issues
+- Generate a Markdown report for manual QA review
+
 
 ## Safety
 

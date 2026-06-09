@@ -1,0 +1,6 @@
+# Example WordPress QA target pages
+# Replace these with actual staging or production URLs.
+
+https://example.com/
+https://example.com/what-we-treat/
+https://example.com/faq/

@@ -22,6 +22,12 @@ This toolkit helps with:
 - QA handover and status reporting
 - Safer cleanup planning before launch
 
+## Where to Run It
+
+Normally run this toolkit from your own workstation, WSL, or Linux environment. The scripts read local page-list and policy files, fetch the listed public or staging pages over HTTP/HTTPS, and write Markdown reports locally. They do not require WordPress Admin, SSH, or target-server filesystem access.
+
+The chosen execution environment must be able to reach the pages. Basic authentication, IP restrictions, a VPN, or bot protection may therefore require an authorized network viewpoint. The scripts still inspect returned HTML only; they do not execute JavaScript or make changes.
+
 ## Current Tools
 
 ### `scripts/wp-url-audit.py`

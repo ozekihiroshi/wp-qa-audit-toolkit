@@ -32,18 +32,57 @@ The chosen execution environment must be able to reach the pages. Basic authenti
 
 Clone or download the repository, open a terminal in a Python environment, and run the audit from the repository directory. On Windows, use WSL or another Python 3 environment.
 
-First edit `examples/qa-pages.txt` so it contains the public or staging pages you are authorized to review, then run:
+Create a separate case workspace so client URLs and reports are not accidentally committed to this public repository. Copy the sample page list, then replace it with the public or staging pages you are authorized to review:
 
 ```bash
 cd /path/to/wp-qa-audit-toolkit
+mkdir -p ../case-name
+cp examples/qa-pages.txt ../case-name/qa-pages.txt
+# Edit ../case-name/qa-pages.txt before running the audit.
 python3 scripts/wp-url-audit.py \
-  --pages examples/qa-pages.txt \
-  --report reports/url-audit.md
+  --pages ../case-name/qa-pages.txt \
+  --check-status \
+  --report ../case-name/url-audit.md
 ```
 
 The script fetches the listed pages and writes the report locally. It does not require WordPress Admin, SSH, target-server filesystem access, or root privileges.
 
 Commands under `tests/` verify this toolkit itself; they are not a QA audit of a client site.
+
+## How and Why This Toolkit Works
+
+This is a targeted, repeatable batch audit rather than an automatic whole-site crawler. You explicitly choose the pages that matter, place one URL per line in a page-list file, run an audit, review the Markdown report, make authorized fixes outside this toolkit, and run the same audit again.
+
+```text
+approved page list
+        -> URL or text-policy audit
+        -> local Markdown report
+        -> manual review and authorized fixes
+        -> repeat the same audit for validation
+```
+
+The explicit page list is intentional:
+
+- it keeps the review within the agreed scope;
+- it makes before-and-after results comparable;
+- it can include important staging pages that are not linked from a homepage;
+- it avoids treating an uncontrolled crawl as complete coverage;
+- it creates a small, reusable QA set for launch, migration, and regression checks.
+
+The URL audit checks links, classifications, optional HTTP status, and staging/live-domain mix-ups. The text-policy audit uses a separate policy file to check visible HTML text for agreed terms, old names, or wording patterns. Both produce findings for manual review; neither changes WordPress.
+
+## When It Is Useful
+
+Use this toolkit when the important pages are known and the question can be answered from returned HTML, especially for:
+
+- pre-launch review of high-value pages;
+- staging-to-live or domain migration validation;
+- detecting old-domain, staging-domain, placeholder, or broken links;
+- brand-name, terminology, or content-policy cleanup;
+- verifying that a previous round of fixes did not regress;
+- producing a repeatable QA report for handover.
+
+It is not the right primary tool for discovering every unknown URL, JavaScript-rendered interactions, visual layout, form submission, authenticated WordPress configuration, malware, database, or server diagnosis. Use a crawler, browser/manual QA, `wp-rescue-toolkit`, or another specialist tool for those layers.
 
 ## Current Tools
 

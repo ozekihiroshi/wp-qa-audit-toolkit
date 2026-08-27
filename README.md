@@ -28,6 +28,23 @@ Normally run this toolkit from your own workstation, WSL, or Linux environment. 
 
 The chosen execution environment must be able to reach the pages. Basic authentication, IP restrictions, a VPN, or bot protection may therefore require an authorized network viewpoint. The scripts still inspect returned HTML only; they do not execute JavaScript or make changes.
 
+## Basic Usage
+
+Clone or download the repository, open a terminal in a Python environment, and run the audit from the repository directory. On Windows, use WSL or another Python 3 environment.
+
+First edit `examples/qa-pages.txt` so it contains the public or staging pages you are authorized to review, then run:
+
+```bash
+cd /path/to/wp-qa-audit-toolkit
+python3 scripts/wp-url-audit.py \
+  --pages examples/qa-pages.txt \
+  --report reports/url-audit.md
+```
+
+The script fetches the listed pages and writes the report locally. It does not require WordPress Admin, SSH, target-server filesystem access, or root privileges.
+
+Commands under `tests/` verify this toolkit itself; they are not a QA audit of a client site.
+
 ## Current Tools
 
 ### `scripts/wp-url-audit.py`
@@ -143,7 +160,7 @@ It should be used together with manual review.
 This script does not automatically fix issues.  
 It is designed to reduce manual checking errors and support safer QA work.
 
-## Requirements and verification
+## Requirements and Toolkit Verification
 
 - Python 3.8 or later
 - No third-party package is required by the current URL and text-policy audits
@@ -155,6 +172,8 @@ Run the regression tests:
 ```bash
 python -m unittest discover -s tests -p 'test_*.py' -v
 ```
+
+This test command uses synthetic test cases. It does not fetch or audit a client site.
 
 ## Repository boundary
 

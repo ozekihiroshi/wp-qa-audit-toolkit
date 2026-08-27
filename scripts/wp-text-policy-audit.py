@@ -31,6 +31,17 @@ from pathlib import Path
 
 DEFAULT_USER_AGENT = "wp-qa-audit-toolkit/0.1 (+read-only text policy audit)"
 
+def configure_console_stream(stream: object) -> None:
+    """Avoid Windows console encoding failures for Unicode paths and URLs."""
+    reconfigure = getattr(stream, "reconfigure", None)
+    if not callable(reconfigure):
+        return
+    try:
+        reconfigure(errors="backslashreplace")
+    except (AttributeError, OSError, ValueError):
+        # Redirected or test streams may not support reconfiguration.
+        return
+
 
 @dataclass
 class PolicyRule:
@@ -585,6 +596,8 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 
 def main(argv: list[str]) -> int:
+    configure_console_stream(sys.stdout)
+    configure_console_stream(sys.stderr)
     args = parse_args(argv)
 
     pages_path = Path(args.pages)

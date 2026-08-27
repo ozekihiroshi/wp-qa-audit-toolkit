@@ -137,15 +137,24 @@ It should be used together with manual review.
 This script does not automatically fix issues.  
 It is designed to reduce manual checking errors and support safer QA work.
 
-## Future Tools
+## Requirements and verification
 
-Planned tools include:
+- Python 3.8 or later
+- No third-party package is required by the current URL and text-policy audits
+- Reports are written as UTF-8 Markdown
+- Windows console output uses safe replacement for characters outside the active console encoding; report files retain UTF-8 text
 
-- Text policy audit for outdated terms, brand names, and inconsistent wording
-- QA list normalizer for CSV/Spreadsheet-based review lists
-- FAQ structure audit
-- Image alt text and media reference audit
-- WordPress pre-launch checklist generator
+Run the regression tests:
+
+```bash
+python -m unittest discover -s tests -p 'test_*.py' -v
+```
+
+## Repository boundary
+
+This repository remains separate from `wp-rescue-toolkit` because its scripts inspect rendered public-page links and text policies. `wp-rescue-toolkit` handles WordPress HTTP/header/endpoint baselines and authenticated/filesystem/database routes. Use both for pre-launch or migration validation when the scope requires both layers.
+
+Possible future additions include a QA list normalizer, FAQ structure audit, image alt-text audit, and pre-launch checklist generator.
 
 ## License
 

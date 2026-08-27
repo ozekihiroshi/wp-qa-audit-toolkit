@@ -7,6 +7,10 @@ This toolkit is designed for WordPress sites that are close to launch but still 
 The goal is not to automatically modify a WordPress site.  
 The goal is to help reviewers and developers identify problems safely before making controlled changes.
 
+## Project Status
+
+This is an initial public release that has reached a usable baseline for targeted, repeatable, read-only QA. It does not claim automatic whole-site coverage or replace browser-based visual, JavaScript, form, accessibility, or authenticated review.
+
 ## Purpose
 
 Many WordPress QA tasks are handled manually through spreadsheets, screenshots, and staging-site reviews. This often leads to missed links, inconsistent page references, repeated issues, and accidental regressions.
